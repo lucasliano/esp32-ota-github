@@ -121,8 +121,8 @@ void execute_ota(void)
     esp_err_t ret = esp_https_ota(&ota_config);
     if (ret == ESP_OK) {
         ESP_LOGI(TAG, "OTA Succeed, Rebooting...");
-        esp_restart();
     } else {
-        ESP_LOGE(TAG, "Firmware upgrade failed");
+        ESP_LOGE(TAG, "Firmware upgrade failed. Rebooting..");
     }
+    esp_restart();
 }
