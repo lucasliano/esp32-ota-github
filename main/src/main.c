@@ -135,6 +135,6 @@ void app_main(void)
 
     xTaskCreate(&relay_task, "relay_task", 2*APP_MINIMAL_STACK_SIZE , NULL, CRITICAL_PRIORITY, NULL);
     // xTaskCreate(&adjust_time_task, "adjust_time_task", 2*APP_MINIMAL_STACK_SIZE , NULL, LOW_PRIORITY, NULL);
-    // xTaskCreate(&led_task, "led_task", 2*APP_MINIMAL_STACK_SIZE , NULL, LOW_PRIORITY, NULL);
+    xTaskCreate(&led_task, "led_task", 2*APP_MINIMAL_STACK_SIZE , NULL, LOW_PRIORITY, NULL);
 
 }
