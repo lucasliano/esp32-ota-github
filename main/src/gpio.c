@@ -38,6 +38,7 @@ void relay_task(void *pvParameter)
 
 
         gpio_set_level(RELAY_GPIO_NUM, 1);
+        vTaskDelay(pdMS_TO_TICKS(10 * 1000));
         if (wifi_connect_if_needed() == ESP_FAIL) ESP_LOGE(TAG, "wifi_connect_if_needed() error on relay_task");
         execute_ota();
     }
