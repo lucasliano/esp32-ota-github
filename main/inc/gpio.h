@@ -19,10 +19,10 @@
 // --- Generic defines ---
 #define RELAY_GPIO_NUM GPIO_NUM_26
 #define RELAY_INITIAL_CONDICION 1     // Starlink ON
-// #define RELAY_ON_MS  (15 * 60 * 1000) // 15m prendido 
-// #define RELAY_OFF_MS (85500 * 1000)   // 24h-15m apagado 
-#define RELAY_ON_MS  (5000) // 15m prendido 
-#define RELAY_OFF_MS (10000)   // 24h-15m apagado 
+#define RELAY_ON_MS  (15 * 60 * 1000) // 15m prendido 
+#define RELAY_OFF_MS (85500 * 1000)   // 24h-15m apagado 
+// #define RELAY_ON_MS  (5 * 60 * 1000) // 5m prendido 
+// #define RELAY_OFF_MS (2 * 60 * 1000)   // 2m apagado 
 
 
 // --- Function definitions ---
