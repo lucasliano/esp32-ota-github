@@ -22,6 +22,7 @@ void relay_task(void *pvParameter)
 {
     while (1) {
         // Turns on power and then turns on wifi
+        gpio_set_level(GPIO_NUM_2, 1);
         gpio_set_level(RELAY_GPIO_NUM, 1);
         ESP_LOGI(TAG, "Relay ON");
 
@@ -31,6 +32,7 @@ void relay_task(void *pvParameter)
 
         // Turns off wifi before cutting power
         if (wifi_disconnect_if_connected() == ESP_FAIL) ESP_LOGE(TAG, "wifi_disconnect_if_connected() error on relay_task");
+        gpio_set_level(GPIO_NUM_2, 0);
         gpio_set_level(RELAY_GPIO_NUM, 0);
         ESP_LOGI(TAG, "Relay OFF");
         vTaskDelay(pdMS_TO_TICKS(RELAY_OFF_MS));

@@ -98,7 +98,7 @@ esp_err_t system_init(void)
     ESP_RETURN_ON_ERROR(gpio_init(), TAG, "GPIO init failed");
     ESP_RETURN_ON_ERROR(led_task_init(), TAG, "led_task_init() failed");
     ESP_RETURN_ON_ERROR(wifi_init(), TAG, "WiFi init failed");
-    ESP_RETURN_ON_ERROR(rtc_sntp_init(), TAG, "SNTP init failed");
+    // ESP_RETURN_ON_ERROR(rtc_sntp_init(), TAG, "SNTP init failed");
     
 
     return ESP_OK;
@@ -134,7 +134,7 @@ void app_main(void)
 
 
     xTaskCreate(&relay_task, "relay_task", 2*APP_MINIMAL_STACK_SIZE , NULL, CRITICAL_PRIORITY, NULL);
-    xTaskCreate(&adjust_time_task, "adjust_time_task", 2*APP_MINIMAL_STACK_SIZE , NULL, LOW_PRIORITY, NULL);
-    xTaskCreate(&led_task, "led_task", 2*APP_MINIMAL_STACK_SIZE , NULL, LOW_PRIORITY, NULL);
+    // xTaskCreate(&adjust_time_task, "adjust_time_task", 2*APP_MINIMAL_STACK_SIZE , NULL, LOW_PRIORITY, NULL);
+    // xTaskCreate(&led_task, "led_task", 2*APP_MINIMAL_STACK_SIZE , NULL, LOW_PRIORITY, NULL);
 
 }
