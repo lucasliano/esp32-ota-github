@@ -22,8 +22,10 @@
 // --- Generic defines ---
 #define LED_GPIO_NUM GPIO_NUM_2
 #define LED_ACTIVE_LEVEL 1
-#define LED_ON_MS  (5 * 1000)  // 5 segundos ON
-#define LED_OFF_MS (5 * 1000)  // 5 segundos OFF
+// #define LED_ON_MS  (5 * 1000)  // 5 segundos ON
+// #define LED_OFF_MS (5 * 1000)  // 5 segundos OFF
+#define LED_ON_MS  (500)  // 5 segundos ON
+#define LED_OFF_MS (500)  // 5 segundos OFF
 
 
 // --- Function definitions ---
