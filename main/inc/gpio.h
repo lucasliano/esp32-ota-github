@@ -24,8 +24,8 @@
 #define RELAY_ON_MS  (5 * 60 * 1000) // 5m prendido 
 #define RELAY_OFF_MS (60 * 60 * 1000)   // 1hs apagado 
 // #define RELAY_OFF_MS (85500 * 1000)   // 24h-15m apagado 
-// #define RELAY_ON_MS  (1 * 60 * 1000) // 5m prendido 
-// #define RELAY_OFF_MS (1 * 60 * 1000)   // 2m apagado 
+// #define RELAY_ON_MS  (30 * 1000) // 5m prendido 
+// #define RELAY_OFF_MS (30 * 1000)   // 2m apagado 
 
 
 

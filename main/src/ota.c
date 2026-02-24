@@ -122,7 +122,7 @@ void execute_ota(void)
 
     uint8_t counter = 0;
     esp_err_t ret = ESP_FAIL;
-    while((counter < 10) || (ret != ESP_OK))
+    while((counter < 10) && (ret != ESP_OK))
     {
         rtc_wtd_config(120 * 1000); // 2 minutos de tiempo para esp_https_ota()
         ret = esp_https_ota(&ota_config);
