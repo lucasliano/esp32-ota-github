@@ -6,6 +6,8 @@ set(SRCS
     "gpio.c"
     "rtc.c"
     "led_task.c"
+    "uart.c"
+    "wtd.c"
 )
 list(TRANSFORM SRCS PREPEND "${SRC_DIR}/")
 

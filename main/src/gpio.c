@@ -24,6 +24,8 @@ void relay_task(void *pvParameter)
         // Turns on power and then turns on wifi
         gpio_set_level(RELAY_GPIO_NUM, 1);
         ESP_LOGI(TAG, "Relay ON");
+        uart_print_line("Relay ON\n");
+
 
         if (wifi_connect_if_needed() == ESP_FAIL) ESP_LOGE(TAG, "wifi_connect_if_needed() error on relay_task");
         vTaskDelay(pdMS_TO_TICKS(RELAY_ON_MS));
@@ -33,12 +35,14 @@ void relay_task(void *pvParameter)
         if (wifi_disconnect_if_connected() == ESP_FAIL) ESP_LOGE(TAG, "wifi_disconnect_if_connected() error on relay_task");
         gpio_set_level(RELAY_GPIO_NUM, 0);
         ESP_LOGI(TAG, "Relay OFF");
+        uart_print_line("Relay OFF\n");
         vTaskDelay(pdMS_TO_TICKS(RELAY_OFF_MS));
 
 
 
         gpio_set_level(RELAY_GPIO_NUM, 1);
-        vTaskDelay(pdMS_TO_TICKS(10 * 1000));
+        ESP_LOGI(TAG, "Running OTA..");
+        uart_print_line("Running OTA..\n");
         if (wifi_connect_if_needed() == ESP_FAIL) ESP_LOGE(TAG, "wifi_connect_if_needed() error on relay_task");
         execute_ota();
     }

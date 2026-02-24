@@ -15,6 +15,9 @@
 #include "esp_crt_bundle.h"
 #endif
 
+#include "uart.h"
+#include "wtd.h"
+
 
 
 

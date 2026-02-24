@@ -94,12 +94,15 @@ esp_err_t system_init(void)
 
     ESP_RETURN_ON_ERROR(nvs_flash_init(), TAG, "NVS init failed");
     get_sha256_of_partitions();
+    ESP_RETURN_ON_ERROR(app_uart_init(), TAG, "app_uart_init() failed.");
     ESP_RETURN_ON_ERROR(esp_event_loop_create_default(), TAG, "esp_event_loop_create_default() failed.");
     ESP_RETURN_ON_ERROR(gpio_init(), TAG, "GPIO init failed");
     ESP_RETURN_ON_ERROR(led_task_init(), TAG, "led_task_init() failed");
     ESP_RETURN_ON_ERROR(wifi_init(), TAG, "WiFi init failed");
     // ESP_RETURN_ON_ERROR(rtc_sntp_init(), TAG, "SNTP init failed");
     
+    // TODO: Remove all uart_print_line() in the project. Instead add some function to send los to uart.
+    uart_print_line("init ok\n");
 
     return ESP_OK;
 }

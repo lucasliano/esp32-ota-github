@@ -13,11 +13,9 @@ void led_task(void *pvParameter)
     ESP_LOGI(TAG, "Parpadeo %lu ms ON / %lu ms OFF", LED_ON_MS, LED_OFF_MS);
     while (1) 
     {
-        ESP_LOGI(TAG, "LED ON");
         gpio_set_level(LED_GPIO_NUM, LED_ACTIVE_LEVEL);
         vTaskDelay(pdMS_TO_TICKS(LED_ON_MS));
 
-        ESP_LOGI(TAG, "LED OFF");
         gpio_set_level(LED_GPIO_NUM, !LED_ACTIVE_LEVEL);
         vTaskDelay(pdMS_TO_TICKS(LED_OFF_MS));
     }

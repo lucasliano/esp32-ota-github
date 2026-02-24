@@ -18,14 +18,11 @@
 #include "gpio.h"
 #include "rtc.h"
 #include "led_task.h"
-
+#include "uart.h"
+#include "wtd.h"
 
 // --- Generic defines ---
-#define LOW_PRIORITY 1
-#define MED_PRIORITY 2
-#define HIGH_PRIORITY 3
-#define CRITICAL_PRIORITY 4
-#define APP_MINIMAL_STACK_SIZE 2048
+
 
 
 

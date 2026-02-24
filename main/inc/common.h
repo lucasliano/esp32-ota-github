@@ -20,7 +20,11 @@
 
 
 // --- Generic defines ---
-
+#define LOW_PRIORITY 1
+#define MED_PRIORITY 2
+#define HIGH_PRIORITY 3
+#define CRITICAL_PRIORITY 4
+#define APP_MINIMAL_STACK_SIZE 2048
 
 // --- Function definitions ---
 

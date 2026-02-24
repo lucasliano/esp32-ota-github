@@ -1,5 +1,6 @@
 
 #include "wifi.h"
+
 static const char *TAG = "wifi.c";
 
 // -------------------
@@ -7,8 +8,6 @@ static esp_netif_t *s_example_sta_netif = NULL;
 static SemaphoreHandle_t s_semph_get_ip_addrs = NULL;
 static SemaphoreHandle_t s_semph_get_ip6_addrs = NULL;
 static int s_retry_num = 0;
-
-
 
 
 
@@ -296,10 +295,12 @@ esp_err_t wifi_connect_if_needed(void)
 {
     if (wifi_is_connected()) {
         ESP_LOGI(TAG, "WiFi ya estaba conectado.");
+        uart_print_line("WiFi ya estaba conectado.\n");
         return ESP_OK;
     }
 
     ESP_LOGI(TAG, "WiFi no conectado. Intentando conectar...");
+    uart_print_line("WiFi no conectado. Intentando conectar...\n");
 
     // Reutiliza la misma config que tu custom_wifi_connect()
     wifi_config_t wifi_config = {
@@ -316,11 +317,13 @@ esp_err_t wifi_connect_if_needed(void)
     esp_err_t err = custom_wifi_sta_do_connect(wifi_config, true);
     if (err != ESP_OK) {
         ESP_LOGE(TAG, "No se pudo establecer la conexión WiFi. err=0x%x", err);
+        uart_print_line("No se pudo establecer la conexión WiFi.\n");
         return err;
     }
 
     // Mantengo tu decisión de desactivar power save
     esp_wifi_set_ps(WIFI_PS_NONE);
+    uart_print_line("Wifi ok.\n");
 
     return ESP_OK;
 }

@@ -118,11 +118,26 @@ void execute_ota(void)
         .http_config = &config,
     };
     ESP_LOGI(TAG, "Attempting to download update from %s", config.url);
-    esp_err_t ret = esp_https_ota(&ota_config);
-    if (ret == ESP_OK) {
-        ESP_LOGI(TAG, "OTA Succeed, Rebooting...");
-    } else {
-        ESP_LOGE(TAG, "Firmware upgrade failed. Rebooting..");
+    
+
+    uint8_t counter = 0;
+    esp_err_t ret = ESP_FAIL;
+    while((counter < 10) || (ret != ESP_OK))
+    {
+        rtc_wtd_config(120 * 1000); // 2 minutos de tiempo para esp_https_ota()
+        ret = esp_https_ota(&ota_config);
+        rtc_wtd_ok();
+
+        if (ret == ESP_OK) {
+            ESP_LOGI(TAG, "OTA Succeed, Rebooting...");
+            uart_print_line("ota ok\n");
+            esp_restart();
+        } else {
+            ESP_LOGE(TAG, "Firmware upgrade failed. Rebooting..");
+            uart_print_line("ota fail\n");
+            vTaskDelay(pdMS_TO_TICKS(30 * 1000));
+        }
+        counter++;
     }
     esp_restart();
 }
