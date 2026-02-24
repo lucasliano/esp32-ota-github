@@ -41,6 +41,7 @@ void relay_task(void *pvParameter)
 
 
         gpio_set_level(RELAY_GPIO_NUM, 1);
+        vTaskDelay(pdMS_TO_TICKS(120*1000));    // Delay to let starlink initialize
         ESP_LOGI(TAG, "Running OTA..");
         uart_print_line("Running OTA..\n");
         if (wifi_connect_if_needed() == ESP_FAIL) 
