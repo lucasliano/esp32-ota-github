@@ -12,22 +12,28 @@
 #include "wifi.h"
 #include "ota.h"
 
-#include "uart.h"
-
-
 // --- Project related includes ---
 
 
 // --- Generic defines ---
 #define RELAY_GPIO_NUM GPIO_NUM_26
 #define RELAY_INITIAL_CONDICION 1     // Starlink OFF
-#define RELAY_ON_MS  (5 * 60 * 1000) // 5m prendido 
-#define RELAY_OFF_MS (60 * 60 * 1000)   // 1hs apagado 
+
+// #define RELAY_ON_MS  (5 * 60 * 1000) // 5m prendido 
+// #define RELAY_OFF_MS (60 * 60 * 1000)   // 1hs apagado 
 // #define RELAY_OFF_MS (85500 * 1000)   // 24h-15m apagado 
-// #define RELAY_ON_MS  (30 * 1000) // 5m prendido 
-// #define RELAY_OFF_MS (30 * 1000)   // 2m apagado 
 
 
+#ifdef MARAMBIO
+    #define RELAY_ON_MS  (5 * 60 * 1000)    // 5m prendido 
+    #define RELAY_OFF_MS (60 * 60 * 1000)   // 1hs apagado 
+#elifdef ISLA_VEGA
+    #define RELAY_ON_MS  (5 * 60 * 1000)    // 5m prendido 
+    #define RELAY_OFF_MS (60 * 60 * 1000)   // 1hs apagado 
+#else
+    #define RELAY_ON_MS  (30 * 1000)        // 30s prendido 
+    #define RELAY_OFF_MS (30 * 1000)        // 30s apagado 
+#endif // MARAMBIO
 
 // --- Function definitions ---
 esp_err_t gpio_init(void);

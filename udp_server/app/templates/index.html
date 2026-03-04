@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>UDP Logger</title>
+  <style>
+    body { font-family: system-ui, Arial, sans-serif; margin: 18px; }
+    header { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+    button { cursor:pointer; padding: 10px 12px; border-radius:10px; border:1px solid #ccc; background:#fff; }
+    button:hover { background:#f5f5f5; }
+    .pill { padding:6px 10px; border-radius:999px; background:#f1f1f1; border:1px solid #e3e3e3; }
+    table { width:100%; border-collapse: collapse; margin-top: 14px; }
+    th, td { border-bottom: 1px solid #eee; padding: 10px; vertical-align: top; }
+    th { text-align:left; font-size: 13px; color:#444; }
+    td pre { margin:0; white-space:pre-wrap; word-break:break-word; }
+    .muted { color:#666; font-size: 13px; }
+    .row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+  </style>
+</head>
+<body>
+  <header>
+    <h2 style="margin:0;">UDP Logger</h2>
+    <span class="pill">UDP: {{ udp_host }}:{{ udp_port }}</span>
+    <span class="pill">Web: :8000</span>
+    <span class="muted" id="status">Cargando...</span>
+  </header>
+
+  <div class="row" style="margin-top:12px;">
+    <button id="refresh">Refrescar</button>
+    <button id="clear">Borrar registros</button>
+    <label class="muted">
+      Límite:
+      <select id="limit">
+        <option>50</option>
+        <option selected>200</option>
+        <option>500</option>
+        <option>1000</option>
+        <option>2000</option>
+      </select>
+    </label>
+    <label class="muted">
+      Auto (2s):
+      <input id="auto" type="checkbox" checked />
+    </label>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:80px;">ID</th>
+        <th style="width:220px;">Timestamp (UTC)</th>
+        <th style="width:160px;">Origen</th>
+        <th style="width:90px;">Bytes</th>
+        <th>Mensaje</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+<script>
+  const tbody = document.getElementById("tbody");
+  const statusEl = document.getElementById("status");
+  const limitSel = document.getElementById("limit");
+  const autoChk = document.getElementById("auto");
+
+  async function fetchMessages() {
+    const limit = limitSel.value;
+    const t0 = performance.now();
+    try {
+      const res = await fetch(`/api/messages?limit=${encodeURIComponent(limit)}`);
+      const data = await res.json();
+      render(data);
+      const dt = Math.round(performance.now() - t0);
+      statusEl.textContent = `OK · ${data.length} mensajes · ${dt} ms`;
+    } catch (e) {
+      statusEl.textContent = `Error: ${e}`;
+    }
+  }
+
+  function render(messages) {
+    tbody.innerHTML = "";
+    for (const m of messages) {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${m.id}</td>
+        <td class="muted">${m.ts_utc}</td>
+        <td>${m.src_ip}:${m.src_port}</td>
+        <td>${m.bytes_len}</td>
+        <td><pre>${escapeHtml(m.text)}</pre></td>
+      `;
+      tbody.appendChild(tr);
+    }
+  }
+
+  function escapeHtml(s) {
+    return (s ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+  }
+
+  document.getElementById("refresh").addEventListener("click", fetchMessages);
+
+  document.getElementById("clear").addEventListener("click", async () => {
+    if (!confirm("¿Borrar TODOS los registros?")) return;
+    statusEl.textContent = "Borrando...";
+    try {
+      const res = await fetch("/api/messages", { method: "DELETE" });
+      const data = await res.json();
+      statusEl.textContent = data.ok ? "Base borrada." : "No se pudo borrar.";
+      await fetchMessages();
+    } catch (e) {
+      statusEl.textContent = `Error: ${e}`;
+    }
+  });
+
+  let timer = null;
+  function setAuto() {
+    if (timer) clearInterval(timer);
+    timer = null;
+    if (autoChk.checked) {
+      timer = setInterval(fetchMessages, 2000);
+    }
+  }
+  autoChk.addEventListener("change", setAuto);
+  limitSel.addEventListener("change", fetchMessages);
+
+  // init
+  fetchMessages();
+  setAuto();
+</script>
+</body>
+</html>

@@ -130,14 +130,13 @@ void execute_ota(void)
 
         if (ret == ESP_OK) {
             ESP_LOGI(TAG, "OTA Succeed, Rebooting...");
-            uart_print_line("ota ok\n");
             esp_restart();
         } else {
-            ESP_LOGE(TAG, "Firmware upgrade failed. Rebooting..");
-            uart_print_line("ota fail\n");
-            vTaskDelay(pdMS_TO_TICKS(30 * 1000));
+            ESP_LOGE(TAG, "Firmware upgrade failed. Retrying...");
+            vTaskDelay(pdMS_TO_TICKS(OTA_RETRY_TIMEOUT_MS));
         }
         counter++;
     }
+    ESP_LOGE(TAG, "Firmware upgrade failed. Max retry count exceeded...");
     esp_restart();
 }

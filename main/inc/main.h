@@ -20,9 +20,17 @@
 #include "led_task.h"
 #include "uart.h"
 #include "wtd.h"
+#include "ble_task.h"
+#include "victron_ble.h"
+#include "victron_crypto.h"
+#include "victron_parser.h"
+#include "metrics_task.h"
+#include "udp_client.h"
+#include "vprintf.h"
+#include "bme280.h"
 
 // --- Generic defines ---
-
+#define HASH_LEN 32
 
 
 

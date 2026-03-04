@@ -18,6 +18,17 @@
 #include "uart.h"
 #include "wtd.h"
 
+#define OTA_RETRY_TIMEOUT_MS    30*1000
+
+
+#ifdef MARAMBIO
+#define CONFIG_EXAMPLE_FIRMWARE_UPGRADE_URL "https://raw.githubusercontent.com/lucasliano/esp32-ota-github/dev/public_images/test.bin"
+#elifdef ISLA_VEGA
+#define CONFIG_EXAMPLE_FIRMWARE_UPGRADE_URL "https://raw.githubusercontent.com/lucasliano/esp32-ota-github/main/public_images/OTA.bin"
+#else
+#define CONFIG_EXAMPLE_FIRMWARE_UPGRADE_URL "https://raw.githubusercontent.com/lucasliano/esp32-ota-github/dev/public_images/test.bin"
+#endif // MARAMBIO
+
 
 
 
