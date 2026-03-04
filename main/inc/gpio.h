@@ -31,8 +31,8 @@
     #define RELAY_ON_MS  (5 * 60 * 1000)    // 5m prendido 
     #define RELAY_OFF_MS (60 * 60 * 1000)   // 1hs apagado 
 #else
-    #define RELAY_ON_MS  (30 * 1000)        // 30s prendido 
-    #define RELAY_OFF_MS (30 * 1000)        // 30s apagado 
+    #define RELAY_ON_MS  (5 * 1000)        // 30s prendido 
+    #define RELAY_OFF_MS (5 * 1000)        // 30s apagado 
 #endif // MARAMBIO
 
 // --- Function definitions ---
