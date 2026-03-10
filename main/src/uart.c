@@ -2,15 +2,6 @@
 #include "uart.h"
 
 
-void uart_print_line(const char *msg)
-{
-    if (!msg) {
-        return;
-    }
-    uart_write_bytes(APP_UART_PORT, msg, strlen(msg));
-    uart_write_bytes(APP_UART_PORT, "\r\n", 2);
-}
-
 esp_err_t app_uart_init(void)
 {
     uart_config_t uart_cfg = {
@@ -26,9 +17,11 @@ esp_err_t app_uart_init(void)
     uart_set_pin(APP_UART_PORT, APP_UART_TX_PIN, APP_UART_RX_PIN,
                  UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
     uart_driver_install(APP_UART_PORT, 1024, 0, 0, NULL, 0);
-    uart_print_line("UART INIT");
-    // NO cambiar esp_log_set_vprintf - los logs ESP_LOGI van a UART_NUM_0 (USB) automáticamente
-    // esp_log_set_vprintf(uart_log_vprintf);  // Comentado para evitar conflictos
+
+    uart_param_config(UART_NUM_0, &uart_cfg);
+    uart_set_pin(UART_NUM_0, GPIO_NUM_1, GPIO_NUM_3,
+                 UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
+    uart_driver_install(UART_NUM_0, 1024, 0, 0, NULL, 0);
 
     return ESP_OK;
 }

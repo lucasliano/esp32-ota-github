@@ -1,0 +1,17 @@
+services:
+  udp_logger:
+    build: .
+    container_name: udp_logger
+    ports:
+      - "8080:8000"          # Web UI + API
+      - "5005:5005/udp"      # UDP listener
+    environment:
+      - DB_PATH=/data/messages.db
+      - UDP_HOST=0.0.0.0
+      - UDP_PORT=5005
+    volumes:
+      - udp_logger_data:/data
+    restart: unless-stopped
+
+volumes:
+  udp_logger_data:

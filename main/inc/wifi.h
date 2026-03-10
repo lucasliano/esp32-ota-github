@@ -15,16 +15,21 @@
 #include "protocol_examples_common.h"
 #include "example_common_private.h"
 
-#include "uart.h"
-
-
-
 // --- Project related includes ---
-
 
 
 // --- Generic defines ---
 
+#ifdef MARAMBIO
+    #define CONFIG_EXAMPLE_WIFI_SSID "GIAR_STARLINK_1"
+    #define CONFIG_EXAMPLE_WIFI_PASSWORD ""
+#elifdef ISLA_VEGA
+    #define CONFIG_EXAMPLE_WIFI_SSID "GIAR-Starlink"
+    #define CONFIG_EXAMPLE_WIFI_PASSWORD ""
+#else
+    #define CONFIG_EXAMPLE_WIFI_SSID "GIAR_STARLINK_1"
+    #define CONFIG_EXAMPLE_WIFI_PASSWORD ""
+#endif // MARAMBIO
 
 // --- Function definitions ---
 void custom_handler_on_wifi_disconnect(void *arg, esp_event_base_t event_base,

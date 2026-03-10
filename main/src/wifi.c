@@ -201,7 +201,6 @@ esp_err_t custom_wifi_connect(void)
     return custom_wifi_sta_do_connect(wifi_config, true);
 }
 
-
 esp_err_t print_all_ips_tcpip(void* ctx)
 {
     const char *prefix = ctx;
@@ -295,12 +294,10 @@ esp_err_t wifi_connect_if_needed(void)
 {
     if (wifi_is_connected()) {
         ESP_LOGI(TAG, "WiFi ya estaba conectado.");
-        uart_print_line("WiFi ya estaba conectado.\n");
         return ESP_OK;
     }
 
     ESP_LOGI(TAG, "WiFi no conectado. Intentando conectar...");
-    uart_print_line("WiFi no conectado. Intentando conectar...\n");
 
     // Reutiliza la misma config que tu custom_wifi_connect()
     wifi_config_t wifi_config = {
@@ -317,13 +314,11 @@ esp_err_t wifi_connect_if_needed(void)
     esp_err_t err = custom_wifi_sta_do_connect(wifi_config, true);
     if (err != ESP_OK) {
         ESP_LOGE(TAG, "No se pudo establecer la conexión WiFi. err=0x%x", err);
-        uart_print_line("No se pudo establecer la conexión WiFi.\n");
         return err;
     }
 
     // Mantengo tu decisión de desactivar power save
     esp_wifi_set_ps(WIFI_PS_NONE);
-    uart_print_line("Wifi ok.\n");
 
     return ESP_OK;
 }
@@ -350,11 +345,6 @@ esp_err_t wifi_disconnect_if_connected(void)
 }
 
 
-
-// -----------------------------------------------------
-
-
-
 esp_err_t wifi_init(void)
 {
     /**
@@ -366,6 +356,8 @@ esp_err_t wifi_init(void)
      *         - Otherwise returns ESP_FAIL.
      */
     esp_err_t err = ESP_OK;
+
+    esp_log_level_set("wifi", ESP_LOG_ERROR);
 
     ESP_RETURN_ON_ERROR(esp_netif_init(), TAG, "esp_netif_init() failed.");
 

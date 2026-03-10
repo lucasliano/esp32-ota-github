@@ -27,7 +27,6 @@
 
 // --- Function definitions ---
 esp_err_t app_uart_init(void);
-void uart_print_line(const char *msg);
 
 
 
