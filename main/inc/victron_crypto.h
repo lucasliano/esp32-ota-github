@@ -13,6 +13,7 @@
 #include <stdint.h>
 #include <stddef.h>
 #include "esp_err.h"
+#include "common.h"
 
 // Tamaño de la clave AES (16 bytes = 128 bits)
 #define VICTRON_AES_KEY_SIZE 16

@@ -7,6 +7,7 @@
 #define METRICS_TASK_H
 
 #include "esp_err.h"
+#include "common.h"
 
 /* InfluxDB: misma URL/org/bucket que en bme280_task (Grafana usa Influx como datasource) */
 // #define METRICS_INFLUX_URL   "http://172.16.0.247:8086"

@@ -40,8 +40,7 @@ void relay_task(void *pvParameter)
         vTaskDelay(pdMS_TO_TICKS(RELAY_OFF_MS));
 
         gpio_set_level(RELAY_GPIO_NUM, 1);
-        // vTaskDelay(pdMS_TO_TICKS(120*1000));    // Delay to let starlink initialize
-        vTaskDelay(pdMS_TO_TICKS(3*1000));    // Delay to let starlink initialize
+        vTaskDelay(pdMS_TO_TICKS(120*1000));    // Delay to let starlink initialize
 
 
         // Stops all tasks to avoid conflicts while running OTA

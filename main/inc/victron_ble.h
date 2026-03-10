@@ -17,6 +17,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include "esp_err.h"
+#include "common.h"
 
 
 #ifdef MARAMBIO

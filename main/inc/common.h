@@ -20,7 +20,7 @@
 
 
 // --- Generic defines ---
-#define DEBUG_VERSION // MARAMBIO // ISLA_VEGA // DEBUG_VERSION
+#define ISLA_VEGA // MARAMBIO // ISLA_VEGA // DEBUG_VERSION
 
 #define LOW_PRIORITY 1
 #define MED_PRIORITY 2

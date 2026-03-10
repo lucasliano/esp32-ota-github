@@ -22,9 +22,9 @@
 
 
 #ifdef MARAMBIO
-#define CONFIG_EXAMPLE_FIRMWARE_UPGRADE_URL "https://raw.githubusercontent.com/lucasliano/esp32-ota-github/dev/public_images/test.bin"
+#define CONFIG_EXAMPLE_FIRMWARE_UPGRADE_URL "https://raw.githubusercontent.com/lucasliano/esp32-ota-github/main/public_images/marambio.bin"
 #elifdef ISLA_VEGA
-#define CONFIG_EXAMPLE_FIRMWARE_UPGRADE_URL "https://raw.githubusercontent.com/lucasliano/esp32-ota-github/main/public_images/OTA.bin"
+#define CONFIG_EXAMPLE_FIRMWARE_UPGRADE_URL "https://raw.githubusercontent.com/lucasliano/esp32-ota-github/main/public_images/isla_vega.bin"
 #else
 #define CONFIG_EXAMPLE_FIRMWARE_UPGRADE_URL "https://raw.githubusercontent.com/lucasliano/esp32-ota-github/dev/public_images/test.bin"
 #endif // MARAMBIO
